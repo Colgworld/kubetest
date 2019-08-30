@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-pod
+spec:
+  selector:
+    matchLabels:
+      run: api-pod
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: api-pod
+    spec:
+      containers:
+      - name: api-pod
+        image: https://hub.docker.com/r/colgworld/kubetest-client
+        ports:
+        - containerPort: 9000
