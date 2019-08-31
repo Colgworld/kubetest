@@ -14,9 +14,10 @@ spec:
     spec:
       containers:
       - name: client
-        image: colgworld/kubetest-client
+        image: colgworld/kubetest-client:latest
         ports:
         - containerPort: 3000
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -37,7 +38,7 @@ kind: Deployment
 metadata:
   name: api
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: api 
@@ -48,9 +49,10 @@ spec:
     spec:
       containers:
       - name: api 
-        image: colgworld/kubetest-api
+        image: colgworld/kubetest-api:latest
         ports:
         - containerPort: 9000
+          hostPort: 9000
 ---
 apiVersion: v1
 kind: Service
@@ -62,6 +64,7 @@ spec:
   - port: 9000
     targetPort: 9000
     protocol: TCP
+    nodePort: 30090
     name: http
   selector:
     app: api-svc
