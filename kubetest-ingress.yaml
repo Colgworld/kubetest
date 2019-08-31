@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kubetest-ingress
+spec:
+  tls:
+  - hosts:
+    - 
+    secretName: kubetest-secret
+  rules:
+  - host: 
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: api-svc
+          servicePort: 9000
+      - path: /
+        backend:
+          serviceName: client-svc
+          servicePort: 3000
